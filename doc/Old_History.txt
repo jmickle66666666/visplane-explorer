@@ -1,0 +1,588 @@
+ 1697 Andrew Apted	2012-06-04
+      VPO ZOOM: TODO addition.
+
+ 1666 Andrew Apted	2012-05-24
+      VPO_ZOOM: process empty(ish) tiles faster than fuller ones, so that
+      when scrolling or zooming out the fresh areas can catch up.
+
+ 1665 Andrew Apted	2012-05-23
+      VPO_ZOOM: created a TODO.txt -- goals for future versions.
+
+ 1664 Andrew Apted	2012-05-22
+      VPO_ZOOM: version bump to 0.80
+
+ 1663 Andrew Apted	2012-05-22
+      VPO_ZOOM | canvas: improved screen_x/y calc in RenderOneTile(), fixing
+      the occasional pixel gap between a row or column of tiles.
+
+ 1662 Andrew Apted	2012-05-22
+      VPO_ZOOM: remove canvas tiles when a new WAD or map is loaded.
+
+ 1661 Andrew Apted	2012-05-22
+      VPO_ZOOM: tweaked background (VOID) color and openings hue.
+
+ 1660 Andrew Apted	2012-05-22
+      VPO_MAIN: no longer disable load buttons, since loading a new wad
+      should work now.
+
+ 1659 Andrew Apted	2012-05-22
+      VPO-LIB: added check to VPO_OpenMap() that a wad file is loaded.
+      Removed the trailing \n from SetError() messages.  Misc tidying.
+
+ 1658 Andrew Apted	2012-05-22
+      VPO-LIB: added P_FreeLevelData() function to properly free the arrays
+      loaded by P_SetupLevel().  Use this in VPO_CloseMap().  Choosing a
+      different map in the main program should work now [without any memory
+      leaks either].
+
+ 1657 Andrew Apted	2012-05-22
+      VPO-LIB: simplified WAD API, have a W_LoadLump() function which just
+      returns the lump loaded into memory [no caching semantics], and a
+      W_FreeLump() to free that memory block.
+      
+      Added a W_RemoveFile() which closes the added wad file and frees
+      the lumpinfo array.  Use this for VPO_FreeWAD() function.  Now it
+      should be possible to load a different wad from the main program.
+
+ 1656 Andrew Apted	2012-05-22
+      VPO_ZOOM: added Main_TryLoadWAD() and Main_TrySetMap() functions.
+      Implemented loading the wad giving on the command line: drag'n'drop
+      should work now.  When a wad only has a single map, automatically
+      load it.
+
+ 1655 Andrew Apted	2012-05-22
+      tweak
+
+ 1654 Andrew Apted	2012-05-22
+      comment tweaks.
+
+ 1653 Andrew Apted	2012-05-22
+      VPO_ZOOM: made overflow colors ramp up from bright red to a dim pink
+      (same hue as the overflow pink, but a lower intensity).
+      Changed openings palette to use bright yellow as the hue.
+
+ 1652 Andrew Apted	2012-05-21
+      VPO_ZOOM: when loading a wad, check that it contains at least one map.
+
+ 1651 Andrew Apted	2012-05-21
+      VPO-LIB: implemented the VPO_GetMapName() API function.
+
+ 1650 Andrew Apted	2012-05-21
+      VPO-LIB: added code to w_wad.cc to find map header lumps, such as MAP01
+      or E1M1 (though it is not limited to those patterns since it checks the
+      lump names after the potential header lump).
+
+ 1649 Andrew Apted	2012-05-21
+      VPO_ZOOM: BIG FIX! checking all eight angles got broke (in the API change
+      probably), and it was only testing a single angle (8 times, heh).
+
+ 1648 Andrew Apted	2012-05-21
+      tweak.
+
+ 1647 Andrew Apted	2012-05-21
+      VPO_ZOOM: version bump --> 0.71
+
+ 1646 Andrew Apted	2012-05-21
+      VPO_ZOOM: use a simpler palette for the visplanes (the browny one),
+      and rearranged the colors for the other ones (grayscale for openings).
+      Renamed heat_palette --> visplane_palette.
+
+ 1645 Andrew Apted	2012-05-21
+      VPO_ZOOM: fixed the off-by-one problem when encoding and decoding a datum_t
+      (valid values need a +1 to distinguish them from DATUM_UNSET).
+
+ 1644 Andrew Apted	2012-05-21
+      VPO_ZOOM | panel: moved 'openings' to bottom of view choice, since it
+      is the least useful thing to look at (rarely comes close to overflow).
+
+ 1643 Andrew Apted	2012-05-21
+      VPO_ZOOM: implemented different palettes for the drawsegs, openings,
+      and solidseg views.
+
+ 1642 Andrew Apted	2012-05-21
+      VPO_ZOOM: implemented keys to change the view mode: 'v' for visplanes,
+      'd' for drawsegs, 'o' for openings and 's' for solidsegs.
+
+ 1641 Andrew Apted	2012-05-21
+      VPO_ZOOM: some bug fixing and improves to 'Count' display, in particular
+      we show the limit too (e.g. "32 / 128") and append "OVF" when the value
+      is greater than the limit.
+
+ 1640 Andrew Apted	2012-05-21
+      VPO_ZOOM: converted Tile class to use datum_t (not byte) for the data.
+
+ 1639 Andrew Apted	2012-05-21
+      VPO_ZOOM: added logic to set the 'Count' widget properly, with a '+' on
+      the end when the value was too high to store, and "(Overflow)" added
+      when the value is overflowing the game's limit for that value.
+
+ 1638 Andrew Apted	2012-05-21
+      VPO_ZOOM: support for rendering other things, DrawSegs and Openings (etc).
+      Also partial support for showing those things in the 'Count' widget.
+
+ 1637 Andrew Apted	2012-05-21
+      VPO_ZOOM: tweaked DATUM_VOID and DATUM_OVERFLOW values (all bytes are
+      the same), and added DATUM_CLOSED for closed (or narrow) sectors.
+
+ 1636 Andrew Apted	2012-05-21
+      VPO_ZOOM: make initial window size smaller (fit on 640x480 screen).
+
+ 1635 Andrew Apted	2012-05-21
+      VPO_MAIN: updated Main_TestSpot() to use the new VPO_TestSpot() API
+      which retrieves four values (visplanes, drawsegs, openings, etc).
+      It also now packs the four values into the new datum_t type.
+      
+      Also added limit_of_XXX global vars to hold the actual visplane (etc)
+      limits for the current game -- so far hard-coded to DOOM values.
+
+ 1634 Andrew Apted	2012-05-21
+      VPO_ZOOM: define the datum_t type, some special values like DATUM_VOID,
+      and some macros to pull apart the fields.
+
+ 1633 Andrew Apted	2012-05-21
+      VPO-LIB: forget to remove 'what' from VPO_TestSpot() API -- done.
+
+ 1632 Andrew Apted	2012-05-21
+      VPO-LIB: changed the API for VPO_TestSpot() function, it now requires
+      four pointer arguments to update the counts for visplanes, drawsegs,
+      openings and solidsegs.
+      
+      Also changed 'dz' semantics, negative values will be offset from the
+      sector ceiling height (instead of always producing RESULT_BAD_Z).
+
+ 1631 Andrew Apted	2012-05-21
+      VPO-LIB | render: renamed total_solidsegs --> max_solidsegs, and now it
+      records the maximum # of solidsegs needed during rendering.
+
+ 1630 Andrew Apted	2012-05-21
+      VPO-LIB: increased MAXVISPLANES to 512, increased MAXOPENINGS too.
+
+ 1629 Andrew Apted	2012-05-21
+      VPO-LIB: use 'overflow_exception' for all exceptions, removed the hacky
+      #defines for visplane_overflow_ex (etc..)
+
+ 1628 Andrew Apted	2012-05-21
+      VPO-LIB: added check for solidseg overflow, keep track of number in new
+      'total_solidsegs' global var, and increased limit from 32 --> 128.
+
+ 1627 Andrew Apted	2012-05-21
+      VPO-LIB: fixed X_SectorForPoint() to be more compatible with DOOM,
+      using R_PointInSubsector() to find the sector.
+
+ 1626 Andrew Apted	2012-05-21
+      VPO-LIB: prevent a crash due to floorplane or ceilingplane being NULL
+      (this occurred in MAP28 of 10SECTOR.wad at x=-2304 y=-4352).
+
+ 1625 Andrew Apted	2012-05-20
+      VPO_ZOOM: we were not testing all 8 angles (only 4) -- fixed.
+
+ 1624 Andrew Apted	2012-05-20
+      VPO_ZOOM: version bump.
+
+ 1623 Andrew Apted	2012-05-20
+      VPO-LIB: got the overflow exceptions working and tested.  Ended up
+      using only a single exception.
+
+ 1622 Andrew Apted	2012-05-20
+      tweak.
+
+ 1621 Andrew Apted	2012-05-20
+      VPO-LIB: added check for opening overflow.  [already did drawseg overflow]
+
+ 1620 Andrew Apted	2012-05-20
+      VPO-LIB: added three exceptions which will be thrown on overflows,
+      one each for visplanes, drawsegs and openings.  Added total_openings
+      and total_drawsegs globals.  Added code to throw the visplane and
+      opening overflow exception [not done drawsegs yet].
+
+ 1619 Andrew Apted	2012-05-20
+      VPO_ZOOM: disabled the old testing code to load a wad/map, also don't
+      busy wait with Fl::wait(0) when no map has been loaded.
+
+ 1618 Andrew Apted	2012-05-20
+      VPO_ZOOM | menu: fixed bug in 'Choose Map' callback, plus we convert the
+      map name to uppercase and truncate at 8 letters, and GoHome() on success.
+
+ 1617 Andrew Apted	2012-05-20
+      VPO_ZOOM | menu: implemented the 'Load WAD' and 'Set Map' buttons.
+
+ 1616 Andrew Apted	2012-05-20
+      VPO_ZOOM: allow zooming in further, up to 1:1 scale (100%).
+
+ 1615 Andrew Apted	2012-05-20
+      VPO_ZOOM | canvas: implement scrolling, done by the same MakeTiles() code
+      where we try to find an existing tile for each base_x/y location.  That
+      is rather simplistic, but it works!
+
+ 1614 Andrew Apted	2012-05-20
+      VPO_ZOOM: added a "Press TAB to toggle map" hint in settings panel.
+
+ 1613 Andrew Apted	2012-05-20
+      tweak
+
+ 1612 Andrew Apted	2012-05-19
+      VPO_ZOOM | canvas: merged MakeTiles_ZOOM() into MakeTiles() -- pass a
+      'reuse_old' parameter.  Remember the bounding box of tiles (in map units).
+
+ 1611 Andrew Apted	2012-05-19
+      VPO_ZOOM: made the "F1" key bring up the ABOUT dialog.
+
+ 1610 Andrew Apted	2012-05-19
+      VPO_ZOOM: implemented scrolling via the cursor keys.
+
+ 1609 Andrew Apted	2012-05-19
+      VPO_ZOOM: implemented '+' and '-' keys for zooming.
+
+ 1608 Andrew Apted	2012-05-19
+      VPO_ZOOM | canvas: removed selbox stuff (not needed).
+
+ 1607 Andrew Apted	2012-05-19
+      VPO_ZOOM | canvas: have a HandleKey() method for keyboard stuff.
+      Implemented the "HOME" key (it also resets the zoom).
+      Tidied up various code (e.g. event handler).
+
+ 1606 Andrew Apted	2012-05-19
+      VPO_ZOOM | menu: implemented the 'Quit' button.
+
+ 1605 Andrew Apted	2012-05-19
+      VPO_ZOOM: dead code removal
+
+ 1604 Andrew Apted	2012-05-19
+      VPO_ZOOM: menu tweak.
+
+ 1603 Andrew Apted	2012-05-19
+      VPO_ZOOM | canvas: implemented MakeTiles_ZOOM() which can reuse the
+      already computed data to stock the new tiles (as much as possible).
+      
+      It also needed to align the base_x/y of the tiles to a "tile grid"
+      boundary (64 * zoom, map units), which means that the copied values
+      when zooming in are placed in the _even_ rows and columns, allowing
+      the interlacing code to show them correctly.
+
+ 1602 Andrew Apted	2012-05-19
+      VPO_ZOOM | tiles: fixed a bug in CopyData() with row/column align check,
+      and made the bbox check a bit more lax.
+
+ 1601 Andrew Apted	2012-05-19
+      VPO_ZOOM | tiles: implemented a 'CopyData' method which can copy data
+      from an old tile which has a different zoom and base_x/y coords.
+      This allows keeping a lot of the data when zooming in or out.
+
+ 1600 Andrew Apted	2012-05-19
+      VPO_ZOOM | canvas: delete tiles in destructor.
+
+ 1599 Andrew Apted	2012-05-19
+      VPO_ZOOM | canvas: keep a list of free tiles, utility methods NewTile(),
+      FreeTile() and FreeAllTiles().
+
+ 1598 Andrew Apted	2012-05-19
+      VPO_ZOOM: implemented 'Count' display on info bar (query datum at mouse
+      pointer from the tiles).
+
+ 1597 Andrew Apted	2012-05-19
+      tweak
+
+ 1596 Andrew Apted	2012-05-19
+      VPO_ZOOM | about box: added spaces to get some alignment.
+
+ 1595 Andrew Apted	2012-05-19
+      VPO_ZOOM: version bump.
+
+ 1594 Andrew Apted	2012-05-19
+      VPO_ZOOM: implemented the 'About' button / dialog.
+
+ 1593 Andrew Apted	2012-05-19
+      VPO_ZOOM: split UI_Menu code into its own files (not ui_panel.cc/h)
+
+ 1592 Andrew Apted	2012-05-19
+      VPO_ZOOM: dead code removal.
+
+ 1591 Andrew Apted	2012-05-19
+      VPO_ZOOM: redraw the rendering canvas every second.
+
+ 1590 Andrew Apted	2012-05-19
+      VPO_ZOOM: fixed the heat_palette[] which was off-by-one (zero is the
+      "unset" color, 1..limit is the real range).
+      Changed VOID color to a dark gray.
+
+ 1589 Andrew Apted	2012-05-19
+      VPO_ZOOM | canvas: use the new heat_palette[] for rendering tiles.
+
+ 1588 Andrew Apted	2012-05-19
+      VPO_ZOOM: tweaked heat_colors[]
+
+ 1587 Andrew Apted	2012-05-19
+      VPO_ZOOM: code to create a "heat palette", interpolating a small set of
+      colors to make a nice gradient, and handle the special PIXEL_* values too.
+
+ 1586 Andrew Apted	2012-05-19
+      VPO_ZOOM | canvas: fixed vertical alignment of rendered tiles (before
+      they were 64 units too low in the window).
+
+ 1585 Andrew Apted	2012-05-19
+      VPO_ZOOM: simplified Main_TestSpot() to always check 8 angles, and
+      removed the heights_to_check[] array since we always check VIEWHEIGHT +
+      MAXBOB.
+      
+      Made the special datum values PIXEL_VOID and PIXEL_OVERFLOW use the top
+      of the range (254 and 255, respectively).
+
+ 1584 Andrew Apted	2012-05-19
+      VPO-LIB: actually return number of visplanes.
+
+ 1583 Andrew Apted	2012-05-19
+      VPO_ZOOM | tiles: fixed bugs in ButterflyCoord().
+
+ 1582 Andrew Apted	2012-05-18
+      VPO_ZOOM | canvas: proper logic to read pixels from a Tile and draw
+      them, using a small RGB buffer.
+
+ 1581 Andrew Apted	2012-05-18
+      VPO_ZOOM: preliminary work on rendering the tiles (drawing them solid
+      with random colors at the moment).
+
+ 1580 Andrew Apted	2012-05-18
+      VPO_ZOOM | canvas: added logic to create an array of tiles for the
+      current window (MakeTiles), and logic to process tiles in a round-robin
+      way (ProcessOneTile).
+
+ 1579 Andrew Apted	2012-05-18
+      VPO_ZOOM | tiles: implemented a "complete" flag.
+
+ 1578 Andrew Apted	2012-05-18
+      VPO_ZOOM: initial implementation of Main_TestSpot().
+
+ 1577 Andrew Apted	2012-05-18
+      VPO_ZOOM: partial work on a Main_TestSpot() function which will return
+      values compatible with the Tile code.
+
+ 1576 Andrew Apted	2012-05-18
+      VPO_ZOOM | tiles: implemented the Process() method, in particular the
+      PictNextDatum() logic which creates the "butterfly" style sequence of
+      coordinates to try.  Removed the rawGet() and rawSet() methods.
+      The Allocate() method now does a Clear().
+
+ 1575 Andrew Apted	2012-05-18
+      VPO_ZOOM | tiles: implemented readNearest().
+
+ 1574 Andrew Apted	2012-05-18
+      VPO_ZOOM | tiles: added skeletal implementation of methods.
+
+ 1573 Andrew Apted	2012-05-18
+      VPO_ZOOM: created the interface for new 'Tile' class, which is responsible
+      for managing a 64x64 block of visplane (etc) data.
+
+ 1572 Andrew Apted	2012-05-18
+      VPO_ZOOM: added widgets for the 'Settings' panel : view, angles and heights.
+
+ 1571 Andrew Apted	2012-05-18
+      VPO_ZOOM: zoom-in limit increased to 2 (was 1).
+
+ 1570 Andrew Apted	2012-05-18
+      VPO_ZOOM: tweaked colors for backgrounds of panels and infobar.
+
+ 1569 Andrew Apted	2012-05-18
+      VPO_ZOOM: zoom-out limit lowered to 64 (from 128).
+
+ 1568 Andrew Apted	2012-05-18
+      VPO_ZOOM: global var 'new_color_scheme' controls the color scheme.
+
+ 1567 Andrew Apted	2012-05-18
+      VPO_ZOOM: split UI_Panel into two widgets, new one called 'UI_Menu' and
+      and contains the main buttons.
+
+ 1566 Andrew Apted	2012-05-18
+      tweak.
+
+ 1565 Andrew Apted	2012-05-18
+      VPO_ZOOM: added new (empty) code files: m_tiles.cc/h and m_util.cc/h
+
+ 1564 Andrew Apted	2012-05-18
+      VPO-LIB: quieten a compiler warning.
+
+ 1563 Andrew Apted	2012-05-18
+      VPO_ZOOM: implemented displaying the Scale on the infobar.
+
+ 1562 Andrew Apted	2012-05-18
+      VPO_ZOOM | canvas: added Vis() check to DrawLinedefs().
+
+ 1561 Andrew Apted	2012-05-18
+      VPO_ZOOM | canvas: implemented GoHome() method to center the canvas at
+      the center of the map.  Added MoveOrigin() utility method, which will
+      be needed in the future for updating the tile cache.
+
+ 1560 Andrew Apted	2012-05-18
+      VPO_ZOOM: implemented showing the mouse location (in map units).
+
+ 1559 Andrew Apted	2012-05-18
+      VPO_ZOOM: actually use the UI_InfoBar in the window.
+
+ 1558 Andrew Apted	2012-05-18
+      VPO_ZOOM: fix DrawGrid() to handle canvas at other positions.
+
+ 1557 Andrew Apted	2012-05-18
+      VPO_ZOOM: new code files 'ui_infobar.cc/h' -- for an information bar
+      sitting at the bottom of the main window.
+
+ 1556 Andrew Apted	2012-05-18
+      VPO_ZOOM | canvas: draw plain lines instead of "knobbly" ones.
+
+ 1555 Andrew Apted	2012-05-18
+      VPO_ZOOM | canvas: fixed zoom logic to zoom around the mouse pointer
+      (rather than just zooming around the middle of the canvas).
+
+ 1554 Andrew Apted	2012-05-18
+      VPO_ZOOM | canvas: initial code for zooming...
+
+ 1553 Andrew Apted	2012-05-18
+      VPO_ZOOM | canvas: fixed grid not to draw too many points at high zooms
+      (which slows down scrolling a lot).  Settled on '32' as the default zoom.
+
+ 1552 Andrew Apted	2012-05-18
+      VPO_ZOOM | canvas: replaced 'Scale' field with integer 'zoom' field
+      which represents how large each on-screen pixel is (in map units).
+
+ 1551 Andrew Apted	2012-05-18
+      VPO_ZOOM: test code to load a map for display.
+
+ 1550 Andrew Apted	2012-05-18
+      VPO_ZOOM: rewrote DrawLinedefs() canvas method using the VPO-LIB API,
+      with a new global 'map_is_loaded' to ensure a map has been loaded.
+
+ 1548 Andrew Apted	2012-05-18
+      VPO_ZOOM: tweaked minimum window size.
+
+ 1547 Andrew Apted	2012-05-18
+      VPO_ZOOM: updated image test stuff for VPO-LIB API changes.
+
+ 1546 Andrew Apted	2012-05-18
+      VPO_ZOOM | Makefile.unix: added 'halfclean' target, leaves the vpo_lib
+      objects in place.
+
+ 1545 Andrew Apted	2012-05-18
+      VPO-LIB: implemented VPO_GetLinedef() and stubbed out VPO_GetMapName().
+
+ 1544 Andrew Apted	2012-05-18
+      VPO-LIB: updated existing code for API changes, e.g. split VPO_LoadMap()
+      into the separate VPO_LoadWAD() and VPO_OpenMap() functions.
+      Also updated the simple test program for the API changes.
+
+ 1543 Andrew Apted	2012-05-18
+      VPO-LIB: API tweaks
+
+ 1542 Andrew Apted	2012-05-18
+      VPO-LIB: updated API (not code) with separate functions to load a wad
+      and to open a map.  Added 'what' parameter to VPO_TestSpot() for ability
+      to test drawseg and opening overflows too (in the future).  Added a
+      function to retrieve map names, and another to retrieve linedefs from
+      the current map (for drawing).
+
+ 1541 Andrew Apted	2012-05-18
+      VPO_ZOOM: set a maximum canvas size (rather arbitrary, 1600x1200).
+
+ 1540 Andrew Apted	2012-05-17
+      VPO_ZOOM | Makefiles: renamed EXEs to official name: Visplane Explorer
+
+ 1539 Andrew Apted	2012-05-17
+      VPO-LIB: temp stuff to allow compiling.
+
+ 1538 Andrew Apted	2012-05-17
+      VPO_ZOOM | Canvas: only the X and Y axes get drawn thick now (not every
+      grid_step_3 units).  Changed orig_x and orig_y to double instead of int,
+      which should fix scrolling stickiness/jerkiness at large zooms.  Got
+      the scrolling code (Mouse button 3) working again.
+
+ 1537 Andrew Apted	2012-05-17
+      VPO_ZOOM: got the grid drawing working again.
+
+ 1536 Andrew Apted	2012-05-17
+      VPO_ZOOM: smaller default window size, played with which side to put
+      the panel on -- going with the right side.
+
+ 1535 Andrew Apted	2012-05-17
+      tweak
+
+ 1534 Andrew Apted	2012-05-17
+      VPO_ZOOM | Makefiles: fixed missing FLTK libs from $LIBS
+
+ 1533 Andrew Apted	2012-05-17
+      VPO_ZOOM: fixed bug in ui_panel.cc -- did not create mouse_y properly.
+
+ 1532 Andrew Apted	2012-05-17
+      VPO_ZOOM: created a proper (but basic) main program which opens the FLTK
+      window and runs the widgets.
+
+ 1531 Andrew Apted	2012-05-17
+      VPO_ZOOM | Makefiles: don't need -lvpo since we are directly linking
+      the vpo_lib's object files with our program.
+
+ 1530 Andrew Apted	2012-05-17
+      VPO_ZOOM: got ui_canvas.cc to compile (albeit by removing some stuff and
+      commenting out even more stuff).
+
+ 1529 Andrew Apted	2012-05-17
+      VPO_ZOOM: use the new 'headers.h' include file, and made all top-of-file
+      comments be consistent.
+
+ 1528 Andrew Apted	2012-05-17
+      VPO_ZOOM: added src/headers.h -- this includes everything we need.
+
+ 1527 Andrew Apted	2012-05-17
+      VPO_ZOOM | Makefiles: fixed CXXFLAGS to have -Ivpo_lib
+
+ 1526 Andrew Apted	2012-05-17
+      VPO_ZOOM: worked on getting the UI widgets compiling (and working, heh).
+      Removed lots of code we won't need from the UI_Canvas widget.
+
+ 1525 Andrew Apted	2012-05-17
+      VPO_ZOOM: application name will be: Visplane Explorer
+
+ 1524 Andrew Apted	2012-05-16
+      VPO_ZOOM: added obj_linux/ and obj_win32/ to the repository.
+
+ 1522 Andrew Apted	2012-05-16
+      tweakage.
+
+ 1521 Andrew Apted	2012-05-16
+      VPO_ZOOM | Makefiles: proper set of OBJS to compile.
+
+ 1520 Andrew Apted	2012-05-16
+      VPO_ZOOM: stripped back 'ui_panel' code to bare necessities.
+
+ 1519 Andrew Apted	2012-05-16
+      VPO_ZOOM: stripped back ui_window.cc/h code to bare essentials.
+
+ 1518 Andrew Apted	2012-05-16
+      VPO_ZOOM: added these files (unchanged from Eureka) :-
+          hdr_fltk.h
+          ui_canvas.cc/h
+          ui_panel.cc/h  (was: ui_vertex)
+          ui_window.cc/h
+
+ 1517 Andrew Apted	2012-05-16
+      VPO_ZOOM: added main.h header
+
+ 1516 Andrew Apted	2012-05-16
+      VPO_ZOOM: added these files: sys_type.h, sys_macro.h, sys_endian.h
+
+ 1515 Andrew Apted	2012-05-16
+      VPO_ZOOM: renamed folder: gui/ --> src/ 
+
+ 1514 Andrew Apted	2012-05-16
+      VPO_ZOOM: added Makefile.unix and Makefile.xming
+
+ 1513 Andrew Apted	2012-05-16
+      VPO_ZOOM: moved the image creating logic out of vpo_lib/vpo_main and
+      into a new file: gui/main.cc (which will be the 'main' entry point for
+      the VPO-ZOOM program).
+
+ 1512 Andrew Apted	2012-05-16
+      VPO_ZOOM: added gui/ folder.
+
+ 1511 Andrew Apted	2012-05-16
+      Moved folder: eureka/vpo_lib --> vpo_zoom/vpo_lib
+
+ 1510 Andrew Apted	2012-05-16
+      VPO_ZOOM: decided to turn the "lib" into a fully-fledged program.
+      Hence created top-level directory for it: vpo_zoom/
+

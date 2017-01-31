@@ -1,0 +1,14 @@
+
+Visplane Explorer TODO
+======================
+
+-  clean up code formatting in the DOOM code
+
+-  more robust VPO_LIB code -- ideally have no I_Error() calls
+
+-  get sector height as if from a player (32x32 bbox)
+   - test all lines which intersect bbox
+   - generate a blockmap for faster testing
+
+WISH:  multi-threaded processing  [ very difficult ]
+

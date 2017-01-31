@@ -1,0 +1,46 @@
+#----------------------------------------------------------------
+#  Visplane Explorer
+#----------------------------------------------------------------
+#
+# GNU Makefile for Linux 32-bit binary (building on 64-bit machine)
+#
+
+PROGRAM=visplane-explorer.lx32
+
+CXX=g++ -m32
+
+OBJ_DIR=obj_lx32
+
+OPTIMISE=-O2
+
+# operating system choices: UNIX WIN32
+OS=UNIX
+
+
+#--- Internal stuff from here -----------------------------------
+
+CXXFLAGS=$(OPTIMISE) -Wall -D$(OS) -Ivpo_lib \
+         -D_THREAD_SAFE -D_REENTRANT
+
+LDFLAGS=-L/usr/X11R6/lib
+
+LIBS=	-lfltk_images -lfltk \
+	-lX11 -lXext -lXft -lfontconfig -lXinerama \
+	-lexpat -lfreetype -lXrender -lpng12 -ljpeg \
+	-lz -lm
+
+
+#----- Common stuff (objects) -------------------------------------
+
+include make_common
+
+
+#----- Targets ----------------------------------------------------
+
+stripped: $(PROGRAM)
+	strip --strip-unneeded $(PROGRAM)
+
+.PHONY: stripped
+
+#--- editor settings ------------
+# vi:ts=8:sw=8:noexpandtab

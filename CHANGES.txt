@@ -1,0 +1,13 @@
+
+CHANGES in 1.0 [since 0.92]
+===========================
+
++  support Hexen and Strife maps
++  validate a loaded map (e.g. vertex number out of range)
++  Next map / Previous map functions
+
+-  ability to pause the calculations
+-  removed limit on maximum window size
+-  fixed 'Heat Map' setting being reset after opening a new file or map
+-  the Visplane (etc) settings in View menu are now radio buttons
+

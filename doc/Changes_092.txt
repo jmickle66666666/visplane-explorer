@@ -1,0 +1,19 @@
+
+CHANGES in 0.92 [since 0.85]
+============================
+
++  ability to reload the map (without moving position)
++  ability to 'Open Doors' in the map
++  implemented Seg splits display
++  implemented 'Save Image' command (File menu)
+
+-  added 'Go to Location' command (View menu)
+-  draw the 2D map _over_ the visplane (etc) rendering
+-  ability to toggle Heat mode, seg splits (etc) via keyboard
+-  can scroll the map using any mouse button
+
+-  detect when current file is modified, show a message
+-  support -file option to specify wad filename
+-  support -warp option, compatible with vanilla DOOM
+-  wrote a Unix man page
+

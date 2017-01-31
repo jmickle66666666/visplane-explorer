@@ -1,0 +1,76 @@
+.\" -*-nroff-*-
+.TH visplane-explorer 6 "July 2014"
+.\" .UC 4
+.SH NAME
+visplane-explorer \- Visualize VPO errors in DOOM maps
+.SH SYNOPSIS
+.B visplane-explorer
+.RI "[" option "]... "
+.RI "[" FILENAME "]"
+.PP
+.SH DESCRIPTION
+.I "Visplane Explorer"
+is a GUI program to help visualize possible visplane overflow
+(VPO) errors in DOOM maps.  This is useful when mapping for
+vanilla DOOM, because when an overflow occurs the game simply
+quits with an error message (or crashes), and that is quite harsh
+on the person playing.
+.PP
+Visplane Explorer can check not only "visplanes", but also
+"draw-segs" and "solid-segs".  When draw-segs overflow, it is not 
+so bad since it just produces rendering glitches,
+but solid-seg overflow will corrupt memory and probably crash.
+Visplane Explorer works by using a stripped
+down version of the DOOM rendering code, with increased limits and
+extra checks to prevent overflowing the buffers and crashing.  
+.PP
+.SH OPTIONS
+Options begin with a single dash for compatibility with DOOM
+ports, though long options may use two dashes
+(like in many GNU programs).
+Running without any options will show a dialog where you can
+select the wad file and map to load.
+.TP
+.B \-h, \-help
+Show a summary of all the options.
+.TP
+.BI "\-f, \-file" " FILENAME"
+An alternate way of specifying the filename.  This matches the
+option used to specify a wad filename in vanilla DOOM
+(and most of its source ports).
+.TP
+.BI "\-w, \-warp" " [EPISODE] MAP"
+Pick which map to load.
+This can be a full lump name, such as MAP25 or E1M7,
+or a number like used with vanilla DOOM.
+When the wad is for DOOM 1, then two numbers are
+needed: the first number is the episode (1-9)
+and the second is the map within that episode (also 1-9).
+.TP
+.B \-s, \-strife
+Set the current game to Strife.  This can be useful when handling Strife
+maps, since they cannot be automatically distinguished from DOOM maps.
+Note that Hexen maps will be automatically detected.
+.SH AUTHORS
+Andrew Apted created this program, and maintains it.
+.PP
+Ioan Chera made the MacOS X port.
+.PP
+This program includes a very stripped down version of the DOOM
+rendering code, which was copied from Chocolate Doom (by Simon Howard),
+which in turn is based on the DOOM source code release by Id Software.
+.SH LICENSE
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or (at
+your option) any later version.
+.PP
+This program is is distributed in the hope that it
+will be useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+.SH "SEE ALSO"
+.PP
+Home page:
+http://eureka-editor.sourceforge.net/?n=VisExp.Main
+

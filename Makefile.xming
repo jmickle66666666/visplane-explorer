@@ -1,0 +1,55 @@
+#----------------------------------------------------------------
+#  Visplane Explorer
+#----------------------------------------------------------------
+#
+# GNU Makefile for WIN32, using CROSS-COMPILER on Linux
+#
+
+PROGRAM=VisplaneExplorer.exe
+
+CROSS=i686-w64-mingw32-
+
+CXX=$(CROSS)g++
+
+OBJ_DIR=obj_win32
+FLTK_DIR=fltk_win32
+
+OPTIMISE=-O2
+
+# operating system choices: UNIX WIN32
+OS=WIN32
+
+
+#--- Internal stuff from here -----------------------------------
+
+FLTK_FLAGS=-I$(FLTK_DIR)
+FLTK_LIBS=$(FLTK_DIR)/mingw/lib/libfltk_images.a \
+	  $(FLTK_DIR)/mingw/lib/libfltk.a
+
+CXXFLAGS=$(OPTIMISE) -Wall -Wno-strict-aliasing -D$(OS) \
+         -Ivpo_lib $(FLTK_FLAGS)
+LDFLAGS=
+LIBS=-lm $(FLTK_LIBS) \
+     -mwindows -lcomdlg32 -lole32 -luuid -lgdi32 \
+     -lcomctl32 -lwsock32 -lsupc++
+
+
+#----- Common stuff (objects) -------------------------------------
+
+include make_common
+
+OBJS += $(OBJ_DIR)/visexp_res.o
+
+
+#----- Targets ----------------------------------------------------
+
+stripped: $(PROGRAM)
+	$(CROSS)strip --strip-unneeded $(PROGRAM)
+
+$(OBJ_DIR)/visexp_res.o: src/visexp.rc
+	$(CROSS)windres $^ -o $@
+
+.PHONY: stripped
+
+#--- editor settings ------------
+# vi:ts=8:sw=8:noexpandtab
